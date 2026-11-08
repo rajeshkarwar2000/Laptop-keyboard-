@@ -29,4 +29,10 @@ jobs:
           echo "dir=$(dirname "$F")" >> $GITHUB_OUTPUT
 
       - name: Build
-        working
+        working-directory: ${{ steps.find.outputs.dir }}
+        run: gradle assembleDebug --no-daemon
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TabletLink-apk
+          path: "**/build/outputs/apk/debug/*.apk"
